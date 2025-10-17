@@ -1,14 +1,12 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(QTX_LIBRARIES Qt6::Widgets Qt6::Xml Qt6::DBus)
+set(QTX_LIBRARIES Qt6::Xml Qt6::DBus)
 
 set(libqtxdg_PUBLIC_H_FILES
-    xdgaction.h
     xdgdesktopfile.h
     xdgdirs.h
     xdgicon.h
     xdgmenu.h
-    xdgmenuwidget.h
     xmlhelper.h
     xdgautostart.h
     xdgmacros.h
@@ -18,12 +16,10 @@ set(libqtxdg_PUBLIC_H_FILES
 )
 
 set(libqtxdg_PUBLIC_CLASSES
-    XdgAction
     XdgDesktopFile
     XdgDirs
     XdgIcon
     XdgMenu
-    XdgMenuWidget
     XmlHelper
     XdgAutoStart
     XdgMimeType
@@ -44,7 +40,6 @@ set(libqtxdg_PRIVATE_H_FILES
 
 set(libqtxdg_CPP_FILES
     qtxdglogging.cpp
-    xdgaction.cpp
     xdgdesktopfile.cpp
     xdgdirs.cpp
     xdgicon.cpp
@@ -53,7 +48,6 @@ set(libqtxdg_CPP_FILES
     xdgmenulayoutprocessor.cpp
     xdgmenureader.cpp
     xdgmenurules.cpp
-    xdgmenuwidget.cpp
     xmlhelper.cpp
     xdgautostart.cpp
     xdgmimetype.cpp

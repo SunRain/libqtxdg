@@ -1,3 +1,138 @@
+# =============================================================================
+# DeckShell 项目 .gitignore 文件
+# =============================================================================
+# 此文件用于忽略不应提交到版本控制的临时文件、编译产物和本地配置
+# 按类别组织以提高可读性和维护性
+
+# =============================================================================
+# 编译产物 (Build Artifacts)
+# =============================================================================
+# C++ 对象文件和库文件
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.so.*
+*.dll
+*.dylib
+
+# Qt 相关编译产物
+object_script.*.Release
+object_script.*.Debug
+*_plugin_import.cpp
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+*.qm
+*.prl
+
+# Qt 单元测试产物
+target_wrapper.*
+
+# 构建目录和文件
+build*/
+*build-*
+Makefile*
+
+# =============================================================================
+# IDE 和编辑器文件 (IDE and Editor Files)
+# =============================================================================
+# Qt Creator
+*.autosave
+.qmlls.ini
+*.qmlproject.user
+*.qmlproject.user.*
+*creator.user*
+
+# Qt 项目文件
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+
+# Qt Creator CMake
+CMakeLists.txt.user*
+
+# Qt Creator 编译数据库
+compile_commands.json
+
+# Visual Studio Code
+.vscode/
+qwlroots.code-workspace
+
+# =============================================================================
+# 操作系统文件 (Operating System Files)
+# =============================================================================
+# macOS
+*.DS_Store
+
+# =============================================================================
+# 开发工具和环境 (Development Tools and Environments)
+# =============================================================================
+# CMake
+/.qmake.cache
+/.qmake.stash
+
+# Nix
+.direnv/
+result
+result-*
+
+# Clangd (C/C++ 语言服务器)
+.cache/
+
+# CCLS (C/C++ 语言服务器)
+.ccls-cache
+
+# Debian 包构建
+debian/.debhelper/
+debian/tmp/
+debian/treeland*/
+debian/debhelper-build-stamp
+debian/files
+debian/*.substvars
+debian/*.debhelper.log
+obj-*-linux-gnu/
+
+# =============================================================================
+# AI 和代码编辑器工具 (AI and Code Editor Tools)
+# =============================================================================
+# Cursor AI 编辑器
+.cursor
+.specstory
+
+# Kilo Code
+.kilocode/
+
+# Claude - 临时文件和缓存（注意：CLAUDE.md 项目文档应被跟踪）
+claudecode-session-history
+.mcp.json
+dev.db
+.claude/
+.spec-workflow/
+.serena
+CLAUDE.md
+**/CLAUDE.md
+
+# =============================================================================
+# 代码质量工具配置 (Code Quality Tools)
+# =============================================================================
+# 注意：以下配置文件应该被版本控制跟踪，不要忽略：
+# - .clang-format   (代码格式化配置)
+# - .clang-tidy     (静态代码分析配置)
+# - Qt6_CPP17_Coding_Style.md (编码规范文档)
+# - CLAUDE.md       (项目架构文档)
+
+DROID_PROJECT_PROMPT.md
+AGENTS.md
+
 build*
 *.qm
 *~
@@ -6,3 +141,4 @@ build*
 *.swp
 CMakeLists.txt.user*
 nbproject/
+test_results/

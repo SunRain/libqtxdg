@@ -8,6 +8,9 @@ project(libqtxdg)
 
 option(BUILD_TESTS "Builds tests" OFF)
 option(BUILD_DEV_UTILS "Builds and install development utils" OFF)
+option(BUILD_EXAMPLES "Builds examples" ON)
+option(BUILD_QML_PLUGIN "Build QML plugin for Qt6Xdg" ON)
+option(BUILD_WIDGETS_LIB "Build Qt Widgets components (XdgAction, XdgMenuWidget)" ON)
 option(QTXDG_INSTALL_DEFAPPS_CONFIG "Install default app config files" ON)
 
 # additional cmake files
@@ -18,14 +21,22 @@ set(QTXDG_MINOR_VERSION 2)
 set(QTXDG_PATCH_VERSION 0)
 set(QTXDG_VERSION_STRING ${QTXDG_MAJOR_VERSION}.${QTXDG_MINOR_VERSION}.${QTXDG_PATCH_VERSION})
 
-set(LXQTBT_MINIMUM_VERSION "2.2.0")
+set(LXQTBT_MINIMUM_VERSION "2.0.0")
 set(QT_MINIMUM_VERSION "6.6.0")
 set(GLIB_MINIMUM_VERSION "2.41.0") # Mime Apps new implementation
 
 find_package(lxqt2-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
-find_package(Qt6 ${QT_MINIMUM_VERSION} CONFIG REQUIRED Widgets Svg Xml DBus)
+find_package(Qt6 ${QT_MINIMUM_VERSION} CONFIG REQUIRED Svg Xml DBus)
 find_package(GLIB ${GLIB_MINIMUM_VERSION} REQUIRED COMPONENTS gobject gio gio-unix)
 find_package(XTerm)
+
+if(BUILD_WIDGETS_LIB)
+    find_package(Qt6 ${QT_MINIMUM_VERSION} CONFIG REQUIRED Widgets)
+endif()
+
+if(BUILD_QML_PLUGIN)
+    find_package(Qt6 ${QT_MINIMUM_VERSION} CONFIG REQUIRED Qml Quick)
+endif()
 
 if (Qt6Gui_VERSION VERSION_GREATER_EQUAL "6.10.0")
     find_package(Qt6GuiPrivate ${QT_MINIMUM_VERSION} REQUIRED)
@@ -55,15 +66,21 @@ endif()
 set(QTXDGX_LIBRARY_NAME "Qt6Xdg")
 set(QTXDGX_FILE_NAME "qt6xdg")
 
+set(QTXDGX_WIDGETS_LIBRARY_NAME "Qt6XdgWidgets")
+set(QTXDGX_WIDGETS_FILE_NAME "qt6xdgwidgets")
+
 set(QTXDGX_ICONLOADER_LIBRARY_NAME "Qt6XdgIconLoader")
 set(QTXDGX_ICONLOADER_FILE_NAME "qt6xdgiconloader")
 set(QTXDGX_ICONENGINEPLUGIN_LIBRARY_NAME "Qt6XdgIconPlugin")
 
 set(QTXDGX_PKG_CONFIG_DESCRIPTION "Qt6Xdg, a Qt6 implementation of XDG standards")
-set(QTXDGX_PKG_CONFIG_REQUIRES "Qt6Core >= ${QT_MINIMUM_VERSION}, Qt6Xml >= ${QT_MINIMUM_VERSION}, Qt6Widgets >= ${QT_MINIMUM_VERSION}, Qt6DBus >= ${QT_MINIMUM_VERSION}, Qt6XdgIconLoader = ${QTXDG_VERSION_STRING}")
+set(QTXDGX_PKG_CONFIG_REQUIRES "Qt6Core >= ${QT_MINIMUM_VERSION}, Qt6Xml >= ${QT_MINIMUM_VERSION}, Qt6DBus >= ${QT_MINIMUM_VERSION}, Qt6XdgIconLoader = ${QTXDG_VERSION_STRING}")
 
 set(QTXDGX_ICONLOADER_PKG_CONFIG_DESCRIPTION "Qt6XdgIconLader, a Qt6 XDG Icon Loader")
 set(QTXDGX_ICONLOADER_PKG_CONFIG_REQUIRES "Qt6Gui >= ${QT_MINIMUM_VERSION}, Qt6Svg >= ${QT_MINIMUM_VERSION}")
+
+set(QTXDGX_WIDGETS_PKG_CONFIG_DESCRIPTION "Qt6XdgWidgets, Qt Widgets components for Qt6Xdg")
+set(QTXDGX_WIDGETS_PKG_CONFIG_REQUIRES "Qt6Core >= ${QT_MINIMUM_VERSION}, Qt6Widgets >= ${QT_MINIMUM_VERSION}, Qt6Xdg = ${QTXDG_VERSION_STRING}")
 
 set(QTXDGX_INTREE_INCLUDEDIR "${CMAKE_CURRENT_BINARY_DIR}/InTreeBuild/include")
 
@@ -93,6 +110,28 @@ endif()
 
 if (BUILD_DEV_UTILS)
     add_subdirectory(util)
+endif()
+
+if(BUILD_QML_PLUGIN)
+    message(STATUS "")
+    message(STATUS "Building QML plugin for Qt6Xdg")
+    add_subdirectory(src/qtxdgqml)
+    message(STATUS "")
+else()
+    message(STATUS "")
+    message(STATUS "For building QML plugin use -DBUILD_QML_PLUGIN=ON option.")
+    message(STATUS "")
+endif()
+
+if(BUILD_EXAMPLES)
+    message(STATUS "")
+    message(STATUS "Building examples")
+    add_subdirectory(examples)
+    message(STATUS "")
+else()
+    message(STATUS "")
+    message(STATUS "For building examples use -DBUILD_EXAMPLES=ON option.")
+    message(STATUS "")
 endif()
 
 configure_package_config_file(
@@ -142,6 +181,31 @@ lxqt_create_pkgconfig_file(
     INSTALL
 )
 
+if(BUILD_WIDGETS_LIB)
+    configure_package_config_file(
+        "${PROJECT_SOURCE_DIR}/cmake/${QTXDGX_WIDGETS_FILE_NAME}-config.cmake.in"
+        "${CMAKE_BINARY_DIR}/${QTXDGX_WIDGETS_FILE_NAME}-config.cmake"
+        INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/${QTXDGX_WIDGETS_FILE_NAME}"
+    )
+
+    write_basic_package_version_file(
+        "${CMAKE_BINARY_DIR}/${QTXDGX_WIDGETS_FILE_NAME}-config-version.cmake"
+        VERSION ${QTXDG_VERSION_STRING}
+        COMPATIBILITY AnyNewerVersion
+    )
+
+    lxqt_create_pkgconfig_file(
+        PACKAGE_NAME ${QTXDGX_WIDGETS_LIBRARY_NAME}
+        DESCRIPTIVE_NAME ${QTXDGX_WIDGETS_LIBRARY_NAME}
+        DESCRIPTION ${QTXDGX_WIDGETS_PKG_CONFIG_DESCRIPTION}
+        INCLUDEDIRS ${QTXDGX_WIDGETS_FILE_NAME}
+        LIBS ${QTXDGX_WIDGETS_LIBRARY_NAME}
+        REQUIRES ${QTXDGX_WIDGETS_PKG_CONFIG_REQUIRES}
+        VERSION ${QTXDG_VERSION_STRING}
+        INSTALL
+    )
+endif()
+
 install(FILES
     "${CMAKE_BINARY_DIR}/${QTXDGX_FILE_NAME}-config.cmake"
     "${CMAKE_BINARY_DIR}/${QTXDGX_FILE_NAME}-config-version.cmake"
@@ -169,6 +233,22 @@ install(EXPORT
     FILE "${QTXDGX_ICONLOADER_FILE_NAME}-targets.cmake"
     COMPONENT Devel
 )
+
+if(BUILD_WIDGETS_LIB)
+    install(FILES
+        "${CMAKE_BINARY_DIR}/${QTXDGX_WIDGETS_FILE_NAME}-config.cmake"
+        "${CMAKE_BINARY_DIR}/${QTXDGX_WIDGETS_FILE_NAME}-config-version.cmake"
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/${QTXDGX_WIDGETS_FILE_NAME}"
+        COMPONENT Devel
+    )
+
+    install(EXPORT
+        "${QTXDGX_WIDGETS_FILE_NAME}-targets"
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/cmake/${QTXDGX_WIDGETS_FILE_NAME}"
+        FILE "${QTXDGX_WIDGETS_FILE_NAME}-targets.cmake"
+        COMPONENT Devel
+    )
+endif()
 
 if (QTXDG_INSTALL_DEFAPPS_CONFIG)
     install(FILES ${QTXDG_CONFIG_FILES}

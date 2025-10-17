@@ -1,2 +1,13 @@
 add_subdirectory(xdgiconloader)
 add_subdirectory(qtxdg)
+
+if(BUILD_WIDGETS_LIB)
+    message(STATUS "")
+    message(STATUS "Building Qt Widgets components (Qt6XdgWidgets)")
+    add_subdirectory(qtxdgwidgets)
+    message(STATUS "")
+else()
+    message(STATUS "")
+    message(STATUS "For building Qt Widgets components use -DBUILD_WIDGETS_LIB=ON option.")
+    message(STATUS "")
+endif()

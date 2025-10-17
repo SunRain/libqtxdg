@@ -3,7 +3,6 @@
 if (NOT TARGET @QTXDGX_LIBRARY_NAME@)
     include(CMakeFindDependencyMacro)
 
-    find_dependency(Qt6Widgets @QT_MINIMUM_VERSION@)
     find_dependency(Qt6Xml @QT_MINIMUM_VERSION@)
     find_dependency(Qt6DBus @QT_MINIMUM_VERSION@)
     find_dependency(Qt6XdgIconLoader @QTXDG_VERSION_STRING@ EXACT)

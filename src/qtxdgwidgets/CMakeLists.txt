@@ -49,7 +49,7 @@ target_include_directories(${QTXDGX_WIDGETS_LIBRARY_NAME}
 )
 
 # create the portable headers
-lxqt_create_portable_headers(libqtxdgwidgets_PORTABLE_HEADERS
+qtxdg_create_portable_headers(libqtxdgwidgets_PORTABLE_HEADERS
     HEADER_NAMES ${libqtxdgwidgets_PUBLIC_CLASSES}
     OUTPUT_DIR "${QTXDGX_INTREE_INCLUDEDIR}/${QTXDGX_WIDGETS_FILE_NAME}"
 )

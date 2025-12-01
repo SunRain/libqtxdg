@@ -11,7 +11,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import org.lxqt.qtxdg 6.0
+import org.deckshell.qtxdg 6.0
 
 Item {
     id: root
@@ -436,7 +436,7 @@ Item {
 
         // 使用XdgDesktopFile启动应用
         var desktop = Qt.createQmlObject(
-            'import org.lxqt.qtxdg 6.0; XdgDesktopFile {}',
+            'import org.deckshell.qtxdg 6.0; XdgDesktopFile {}',
             root,
             'dynamicDesktop'
         )
@@ -456,7 +456,7 @@ Item {
         var app = favoritesModel.get(index)
 
         var desktop = Qt.createQmlObject(
-            'import org.lxqt.qtxdg 6.0; XdgDesktopFile {}',
+            'import org.deckshell.qtxdg 6.0; XdgDesktopFile {}',
             root,
             'dynamicDesktop'
         )

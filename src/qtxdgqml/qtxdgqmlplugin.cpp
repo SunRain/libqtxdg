@@ -46,7 +46,7 @@
 
 void QtXdgQmlPlugin::registerTypes(const char *uri)
 {
-    Q_ASSERT(QLatin1String(uri) == QLatin1String("org.lxqt.qtxdg"));
+    Q_ASSERT(QLatin1String(uri) == QLatin1String("org.deckshell.qtxdg"));
 
     // Register singleton wrappers
     qmlRegisterSingletonType<XdgDirsWrapper>(uri, 6, 0, "XdgDirs",

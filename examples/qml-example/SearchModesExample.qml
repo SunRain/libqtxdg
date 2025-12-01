@@ -9,7 +9,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import org.lxqt.qtxdg 6.0
+import org.deckshell.qtxdg 6.0
 
 Rectangle {
     id: root
@@ -251,7 +251,7 @@ Rectangle {
                             console.log("[SearchModesExample] 启动应用:", model.name)
                             // 实际启动逻辑
                             var desktop = Qt.createQmlObject(
-                                'import org.lxqt.qtxdg 6.0; XdgDesktopFile {}',
+                                'import org.deckshell.qtxdg 6.0; XdgDesktopFile {}',
                                 root,
                                 'dynamicDesktop'
                             )

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import org.lxqt.qtxdg 6.0
+import org.deckshell.qtxdg 6.0
 
 GroupBox {
     title: "Menu Tree Model - Complete Implementation (方案1.1)"

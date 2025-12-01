@@ -8,7 +8,7 @@ set(QTXDGQML_LIBRARY_NAME "Qt6XdgQml")
 set(QTXDGQML_FILE_NAME "qt6xdgqml")
 
 # QML module URI
-set(QML_MODULE_URI "org.lxqt.qtxdg")
+set(QML_MODULE_URI "org.deckshell.qtxdg")
 set(QML_MODULE_VERSION 6.0)
 
 # Convert URI dots to slashes for file path

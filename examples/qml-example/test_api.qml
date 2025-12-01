@@ -1,5 +1,5 @@
 import QtQuick 6.0
-import org.lxqt.qtxdg 6.0
+import org.deckshell.qtxdg 6.0
 
 Item {
     width: 400

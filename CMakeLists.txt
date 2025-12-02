@@ -124,7 +124,7 @@ if (QTXDG_INSTALL_DEFAPPS_CONFIG)
     endif()
 
     set(QTXDG_DEFAPPS_CONF_INSTALL_DIR
-        "${CMAKE_INSTALL_SYSCONFDIR}/deckshell/xdg"
+        "${CMAKE_INSTALL_SYSCONFDIR}/xdg"
         CACHE PATH "Path to qtxdg default apps conf files install dir")
     mark_as_advanced(QTXDG_DEFAPPS_CONF_INSTALL_DIR)
 endif()

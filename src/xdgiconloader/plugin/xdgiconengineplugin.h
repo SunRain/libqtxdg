@@ -30,7 +30,7 @@
 class XdgIconEnginePlugin : public QIconEnginePlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QIconEngineFactoryInterface" FILE "xdgiconengineplugin.json")
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QIconEngineFactoryInterface" FILE "deckxdgiconengineplugin.json")
 public:
     using QIconEnginePlugin::QIconEnginePlugin;
     QIconEngine * create(const QString & filename = QString{}) override;

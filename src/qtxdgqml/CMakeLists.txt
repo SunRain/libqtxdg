@@ -120,6 +120,41 @@ if(EXISTS "${CMAKE_BINARY_DIR}/qml/${QML_MODULE_PATH}/plugins.qmltypes")
     )
 endif()
 
+# Install public header files
+set(qtxdgqml_PUBLIC_HEADERS
+    # Wrapper classes for QML
+    xdgdirswrapper.h
+    xdgiconwrapper.h
+    xdgdesktopfilewrapper.h
+    xdgautostartwrapper.h
+    xdgdefaultappswrapper.h
+    xdgmimetypewrapper.h
+    xdgmimeappswrapper.h
+    xdgmenuwrapper.h
+
+    # Model classes
+    xdgsimplelistmodel.h
+    xdgapplicationsmodel.h
+    xdgautostartmodel.h
+    xdgmenutreemodel.h
+
+    # Icon system
+    xdgiconprovider.h
+    xdgiconengineinitializer.h
+    fasticonprovider.h
+    fasticonresponse.h
+    fasticonstats.h
+    cachedtexturefactory.h
+    diskiconcache.h
+    iconusagetracker.h
+)
+
+install(FILES ${qtxdgqml_PUBLIC_HEADERS}
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${QTXDGX_FILE_NAME}/qml"
+    COMPONENT Devel
+)
+
 message(STATUS "QML module ${QML_MODULE_URI} configured")
 message(STATUS "  Output directory: ${CMAKE_BINARY_DIR}/qml/${QML_MODULE_PATH}")
 message(STATUS "  Install destination: ${CMAKE_INSTALL_LIBDIR}/qt6/qml/${QML_MODULE_PATH}")
+message(STATUS "  Headers install destination: ${CMAKE_INSTALL_INCLUDEDIR}/${QTXDGX_FILE_NAME}/qml")
